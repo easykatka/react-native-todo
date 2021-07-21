@@ -1,16 +1,27 @@
-import React from 'react';
+import React, {ComponentType, useLayoutEffect} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
-import {NavigationStackScreenComponent} from "react-navigation-stack";
 import {CATEGORIES, MEALS} from "../data/dummy-data";
 import {IMeal} from "../models/meal";
 import {MealItem} from "../components/MealItem";
+import {NavigationRoute} from "react-navigation";
 
-export const CategoryMeals: NavigationStackScreenComponent = ({navigation}) => {
+interface Props {
+    route: NavigationRoute,
+    navigation: any
+}
 
-    const categoryId = navigation.getParam('categoryId')
+export const CategoryMeals: ComponentType<Props> = ({route, navigation}) => {
+
+    const categoryId = route.params?.categoryId
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerTitle: CATEGORIES.find(cat => cat.id === categoryId)?.title
+        })
+
+
+    }, [navigation])
+
     const displayedMeals = MEALS.filter(meal => meal.categoryIds.includes(categoryId))
-
-
 
     const renderMealItem = ({item}: { item: IMeal }) =>
 
@@ -27,13 +38,6 @@ export const CategoryMeals: NavigationStackScreenComponent = ({navigation}) => {
     )
 };
 
-CategoryMeals.navigationOptions = ({navigation}) => {
-    const categoryId = navigation.getParam('categoryId')
-    const selectedCategory = CATEGORIES.find(cat => cat.id === categoryId)
-    return {
-        headerTitle: selectedCategory?.title
-    }
-}
 
 const styles = StyleSheet.create({
     screen: {

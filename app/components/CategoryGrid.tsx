@@ -1,8 +1,15 @@
-import {Platform, StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View} from "react-native";
+import {
+    Platform,
+    StyleSheet,
+    Text,
+    TouchableNativeFeedback,
+    TouchableOpacity,
+    View
+} from "react-native";
 import React from "react";
 import {NavigationStackProp} from "react-navigation-stack";
 import {ICategories} from "../models/category";
-
+import {CommonActions} from '@react-navigation/native';
 
 type Props = {
     item: ICategories;
@@ -18,12 +25,11 @@ export const CategoryGridItem: React.ComponentType<Props> = ({item, navigation})
         TouchableCmp = TouchableNativeFeedback;
     }
 
+
     const toCategoryMeal = () => {
-        navigation.navigate({
-            routeName: 'CategoryMeals',
-            params: {categoryId: item.id}
-        })
-    }
+        navigation.navigate('CategoryMeals', {categoryId: item.id})}
+
+
     return <View style={styles.gridItem}>
         <TouchableCmp style={{flex: 1}}
                       onPress={toCategoryMeal}>
@@ -45,16 +51,19 @@ const styles = StyleSheet.create({
         flex: 1,
         margin: 10,
         height: 150,
-        borderRadius:10,
-        overflow:'hidden'
+        borderRadius: 10,
+        overflow: (Platform.OS === 'android') ? 'hidden' : undefined,
+        elevation: 5,
+
     },
     container: {
         flex: 1,
         backgroundColor: 'red',
         borderRadius: 10,
         shadowOpacity: 0.26,
-        shadowOffset: {width: 0, height: 2},
-        elevation: 3,
+        shadowOffset: {width: 0, height: 10},
+        shadowRadius: 10,
+
         padding: 15,
         justifyContent: 'flex-end',
         alignItems: 'flex-end'

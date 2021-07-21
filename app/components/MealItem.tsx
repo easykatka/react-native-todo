@@ -17,10 +17,8 @@ interface Props {
 export const MealItem: React.ComponentType<Props> = ({item,navigation}) => {
 
     const toMealDetail = () => {
-        navigation.navigate({
-            routeName: 'MealDetail',
-            params: {meal: item}
-        })
+        navigation.navigate('MealDetail',{meal: item}
+        )
     }
 
     return <View style={styles.mealItem}>

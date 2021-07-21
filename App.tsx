@@ -2,9 +2,12 @@ import React from 'react'
 import * as Font from 'expo-font';
 import {observable} from "mobx";
 import {observer} from "mobx-react";
-
-import MealsNavigator from "./app/navigation/"
+import {NavigationContainer} from '@react-navigation/native';
 import {enableScreens} from 'react-native-screens'
+import {MealsStackScreen, Tab} from "./app/navigation";
+import {Favorites} from "./app/screens";
+import {Ionicons} from "@expo/vector-icons";
+import Colors from "./app/constans/color";
 
 @observer
 export default class App extends React.Component {
@@ -29,7 +32,37 @@ export default class App extends React.Component {
 	render() {
 		if (!this.fontLoaded) return null;
 		return (
-			<MealsNavigator/>
+			<NavigationContainer>
+				<Tab.Navigator
+					screenOptions={({route}) => ({
+						tabBarLabel: route.name === 'Meals' ? 'Meals!' : 'Favorites!',
+						tabBarIcon: ({focused, color, size}) => {
+							let iconName: any;
+							if (route.name === 'Meals') {
+								iconName = focused
+									? 'ios-restaurant'
+									: 'ios-restaurant-outline';
+							} else if (route.name === 'Favorites') {
+								iconName = 'ios-star'
+							}
+							return < Ionicons name={iconName} size={size}
+											  color={color}/>;
+						},
+					})}
+
+					tabBarOptions={{
+						activeTintColor: Colors.primaryColor,
+						inactiveTintColor: 'black',
+					}}
+				>
+					<Tab.Screen
+
+
+						name="Meals" component={MealsStackScreen}/>
+					<Tab.Screen name="Favorites" component={Favorites}/>
+				</Tab.Navigator>
+			</NavigationContainer>
+
 		)
 	}
 };
