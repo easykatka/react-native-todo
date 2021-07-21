@@ -7,16 +7,24 @@ import {
 } from "react-native";
 import React from "react";
 import {IMeal} from "../models/meal";
+import {NavigationStackProp} from "react-navigation-stack";
 
 interface Props {
     item: IMeal;
-    onSelect: () => void;
+    navigation: NavigationStackProp;
 }
 
-export const MealItem: React.ComponentType<Props> = ({item, onSelect}) => {
+export const MealItem: React.ComponentType<Props> = ({item,navigation}) => {
+
+    const toMealDetail = () => {
+        navigation.navigate({
+            routeName: 'MealDetail',
+            params: {meal: item}
+        })
+    }
 
     return <View style={styles.mealItem}>
-        <TouchableOpacity onPress={onSelect}>
+        <TouchableOpacity onPress={toMealDetail}>
             <View>
                 <View style={[styles.mealRow, styles.header]}>
                     <ImageBackground source={{uri: item.imageUrl}}

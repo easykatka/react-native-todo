@@ -9,13 +9,12 @@ export const CategoryMeals: NavigationStackScreenComponent = ({navigation}) => {
 
     const categoryId = navigation.getParam('categoryId')
     const displayedMeals = MEALS.filter(meal => meal.categoryIds.includes(categoryId))
-    const onSelect = () => {
-    }
+
 
 
     const renderMealItem = ({item}: { item: IMeal }) =>
 
-        <MealItem item={item} onSelect={onSelect}/>
+        <MealItem item={item} navigation={navigation}/>
 
 
     return (

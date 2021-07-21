@@ -18,15 +18,15 @@ export const CategoryGridItem: React.ComponentType<Props> = ({item, navigation})
         TouchableCmp = TouchableNativeFeedback;
     }
 
-
+    const toCategoryMeal = () => {
+        navigation.navigate({
+            routeName: 'CategoryMeals',
+            params: {categoryId: item.id}
+        })
+    }
     return <View style={styles.gridItem}>
         <TouchableCmp style={{flex: 1}}
-                      onPress={() => {
-                          navigation.navigate({
-                              routeName: 'CategoryMeals',
-                              params: {categoryId: item.id}
-                          })
-                      }}>
+                      onPress={toCategoryMeal}>
             <View style={[styles.container, {backgroundColor: item.color}]}>
                 <Text numberOfLines={2} style={styles.title}>{item.title}</Text>
             </View>

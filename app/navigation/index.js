@@ -9,7 +9,7 @@ const MealsNavigation = createStackNavigator({
         Categories: Screens.Categories,
         CategoryMeals: Screens.CategoryMeals,
         Favorites: Screens.Favorites,
-        MealDeatail: Screens.MealDetail,
+        MealDetail: Screens.MealDetail,
         Filters: Screens.Filters
     },
      {
@@ -18,7 +18,8 @@ const MealsNavigation = createStackNavigator({
             headerStyle: {
                 backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : Colors.accentColor
             },
-            headerTintColor: 'white'
+            headerTintColor: 'white',
+
         }
     });
 
