@@ -1,14 +1,28 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 import {CATEGORIES} from "../data/dummy-data";
 import {ICategories} from "../models/category";
 import {CategoryGridItem} from "../components/CategoryGrid";
 import {CategoriesScreenNavigationProp} from "../types";
-import { useNavigation } from '@react-navigation/native';
+import {DrawerActions, useNavigation } from '@react-navigation/native';
+import {HeaderButtons, Item} from "react-navigation-header-buttons";
+import HeaderButton from "../components/HeaderButton";
 
 
 export const Categories = () => {
     const navigation = useNavigation<CategoriesScreenNavigationProp>();
+
+    const toggleDrawer = () => navigation.dispatch(DrawerActions.toggleDrawer())
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerTitle: 'Meal Categories',
+            headerLeft: () => <HeaderButtons HeaderButtonComponent={HeaderButton} >
+                <Item title='Menu' iconName='ios-menu' onPress={toggleDrawer}/>
+            </HeaderButtons>
+        })
+    }, [navigation]);
+
 
     const renderItem = ({item}: { item: ICategories }) =>
         <CategoryGridItem item={item} navigation={navigation}/>

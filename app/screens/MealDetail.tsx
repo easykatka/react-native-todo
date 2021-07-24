@@ -3,13 +3,14 @@ import {StyleSheet, Text, View} from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons'
 import HeaderButton from "../components/HeaderButton";
 import {NavigationRoute} from "react-navigation";
+import {useNavigation, useRoute } from '@react-navigation/native';
+import {MealDetailScreenNavigationProp, MealDetailScreenRouteProp} from "../types";
 
-interface Props {
-    route: NavigationRoute,
-    navigation: any
-}
 
-export const MealDetail: ComponentType<Props> = ({route, navigation}) => {
+
+export const MealDetail= () => {
+    const route = useRoute<MealDetailScreenRouteProp>();
+    const navigation = useNavigation<MealDetailScreenNavigationProp>();
 
     const meal = route.params?.meal
     useLayoutEffect(() => {

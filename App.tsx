@@ -4,7 +4,7 @@ import {observable} from "mobx";
 import {observer} from "mobx-react";
 import {NavigationContainer} from '@react-navigation/native';
 import {enableScreens} from 'react-native-screens'
-import {FavoritesStackScreen, MealsStackScreen, Tab, tabOptions} from "./app/navigation";
+import {MainNavigator} from "./app/navigation";
 
 @observer
 export default class App extends React.Component {
@@ -30,10 +30,8 @@ export default class App extends React.Component {
 		if (!this.fontLoaded) return null;
 		return (
 			<NavigationContainer>
-				<Tab.Navigator  {...tabOptions} >
-					<Tab.Screen name="Meals" component={MealsStackScreen}/>
-					<Tab.Screen name="Favorites" component={FavoritesStackScreen}/>
-				</Tab.Navigator>
+				{/*<Drawer => bottom tabs => screen stacks />*/}
+				<MainNavigator/>
 			</NavigationContainer>
 		)
 	}

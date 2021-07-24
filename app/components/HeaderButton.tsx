@@ -6,11 +6,9 @@ import React from 'react'
 import Colors from "../constans/color";
 
 
- const CustomHeaderButton = (props: any) => {
-    console.log(props, 'p')
-    return <HeaderButton IconComponent={Ionicons}
-                         iconSize ={23}
+const CustomHeaderButton = (props: any) => {
+    return <HeaderButton IconComponent={Ionicons} iconSize={23}
                          color={Platform.OS === 'android' ? 'white' : Colors.primaryColor}
-                         {...props}/>;
+                         {...props}/>
 }
 export default CustomHeaderButton

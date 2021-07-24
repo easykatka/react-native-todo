@@ -4,8 +4,17 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Colors from "../constans/color";
 import {Ionicons} from "@expo/vector-icons";
 import React from "react";
+import {MealsStackScreen} from "./mealsStackScreen";
+import {FavoritesStackScreen} from "./favoritesStackScreen";
 
-export const Tab: any = Platform.OS === 'android' ? createMaterialBottomTabNavigator() : createBottomTabNavigator();
+const {Navigator, Screen}: any = Platform.OS === 'android' ? createMaterialBottomTabNavigator()
+    : createBottomTabNavigator();
+
+
+export const BottomTabsNav = () => <Navigator  {...tabOptions} >
+    <Screen name="Meals" component={MealsStackScreen}/>
+    <Screen name="Favorites" component={FavoritesStackScreen}/>
+</Navigator>
 
 
 export const tabOptions = Platform.OS === 'android' ? {
