@@ -6,6 +6,7 @@ import {Ionicons} from "@expo/vector-icons";
 import React from "react";
 import {MealsStackScreen} from "./mealsStackScreen";
 import {FavoritesStackScreen} from "./favoritesStackScreen";
+import {Text} from 'react-native'
 
 const {Navigator, Screen}: any = Platform.OS === 'android' ? createMaterialBottomTabNavigator()
     : createBottomTabNavigator();
@@ -17,6 +18,7 @@ export const BottomTabsNav = () => <Navigator  {...tabOptions} >
 </Navigator>
 
 
+
 export const tabOptions = Platform.OS === 'android' ? {
 // createMaterialBottomTabNavigator
         initialRouteName: "Meals",
@@ -25,7 +27,9 @@ export const tabOptions = Platform.OS === 'android' ? {
         shifting: true, labeled: true,
         barStyle: {backgroundColor: Colors.primaryColor},
         screenOptions: ({route}: any) => ({
-            tabBarLabel: route.name === 'Meals' ? 'Meals!' : 'Favorites!',
+
+            tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily:'open-sans-bold'}}>{route.name === 'Meals' ? 'Meals!' : 'Favorites!'}</Text> :
+                route.name === 'Meals' ? 'Meals!' : 'Favorites!',
             tabBarIcon: ({focused, color, size}: any) => {
                 let iconName: any;
                 if (route.name === 'Meals') {
@@ -61,5 +65,9 @@ export const tabOptions = Platform.OS === 'android' ? {
         tabBarOptions: {
             activeTintColor: Colors.primaryColor,
             inactiveTintColor: 'black',
+            labelStyle: {
+                fontFamily:'open-sans-bold',
+                fontSize: 13,
+            }
         }
     }

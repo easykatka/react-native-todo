@@ -2,6 +2,7 @@ import {ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-n
 import React from "react";
 import {IMeal} from "../models/meal";
 import {useNavigation} from "@react-navigation/native";
+import {DefaultText} from "./DefaultText";
 
 
 export const MealItem = ({item}: { item: IMeal }) => {
@@ -22,9 +23,9 @@ export const MealItem = ({item}: { item: IMeal }) => {
                     </ImageBackground>
                 </View>
                 <View style={[styles.mealRow, styles.detail]}>
-                    <Text>{item.duration}m</Text>
-                    <Text>{item.complexity.toUpperCase()}</Text>
-                    <Text>{item.affordability.toUpperCase()}</Text>
+                    <DefaultText>{item.duration}m</DefaultText>
+                    <DefaultText>{item.complexity.toUpperCase()}</DefaultText>
+                    <DefaultText>{item.affordability.toUpperCase()}</DefaultText>
                 </View>
             </View>
         </TouchableOpacity>

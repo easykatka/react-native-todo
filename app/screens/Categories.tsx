@@ -12,13 +12,12 @@ import HeaderButton from "../components/HeaderButton";
 export const Categories = () => {
     const navigation = useNavigation<CategoriesScreenNavigationProp>();
 
-    const toggleDrawer = () => navigation.dispatch(DrawerActions.toggleDrawer())
 
     useLayoutEffect(() => {
         navigation.setOptions({
             headerTitle: 'Meal Categories',
             headerLeft: () => <HeaderButtons HeaderButtonComponent={HeaderButton} >
-                <Item title='Menu' iconName='ios-menu' onPress={toggleDrawer}/>
+                <Item title='Menu' iconName='ios-menu' onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}/>
             </HeaderButtons>
         })
     }, [navigation]);
