@@ -1,50 +1,28 @@
-import React, {ComponentType, useLayoutEffect} from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import React, {useLayoutEffect} from 'react';
+import {StyleSheet} from 'react-native';
 import {CATEGORIES, MEALS} from "../data/dummy-data";
-import {IMeal} from "../models/meal";
-import {MealItem} from "../components/MealItem";
-import {NavigationRoute} from "react-navigation";
+import {MealList} from "../components/MealList";
+import {CategoryMealsScreenRouteProp} from "../types";
+import {useNavigation, useRoute} from "@react-navigation/native";
 
-interface Props {
-    route: NavigationRoute,
-    navigation: any
-}
-
-export const CategoryMeals: ComponentType<Props> = ({route, navigation}) => {
+export const CategoryMeals = () => {
+    const navigation = useNavigation();
+    const route = useRoute<CategoryMealsScreenRouteProp>();
 
     const categoryId = route.params?.categoryId
     useLayoutEffect(() => {
         navigation.setOptions({
             headerTitle: CATEGORIES.find(cat => cat.id === categoryId)?.title
         })
-
-
-    }, [navigation])
+    }, [navigation]);
 
     const displayedMeals = MEALS.filter(meal => meal.categoryIds.includes(categoryId))
 
-    const renderMealItem = ({item}: { item: IMeal }) =>
 
-        <MealItem item={item} navigation={navigation}/>
-
-
-    return (
-        <View style={styles.screen}>
-            <FlatList data={displayedMeals} style={{width: '90%'}}
-                      keyExtractor={(item, index) => item.id}
-                      renderItem={renderMealItem}/>
-
-        </View>
-    )
+    return <MealList displayedMeals={displayedMeals} />
 };
 
-
 const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
 });
 
 

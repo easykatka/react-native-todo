@@ -7,16 +7,16 @@ import {
     View
 } from "react-native";
 import React from "react";
-import {NavigationStackProp} from "react-navigation-stack";
 import {ICategories} from "../models/category";
-import {CommonActions} from '@react-navigation/native';
+import {StackNavigationProp} from "@react-navigation/stack";
+import {MealsStackParamList} from "../navigation";
 
 type Props = {
     item: ICategories;
-    navigation: NavigationStackProp;
+    navigation: StackNavigationProp<MealsStackParamList, 'Categories'>;
 };
 
-export const CategoryGridItem: React.ComponentType<Props> = ({item, navigation}) => {
+export const CategoryGridItem = ({item, navigation}: Props) => {
 
     let TouchableCmp = TouchableOpacity;
 

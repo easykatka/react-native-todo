@@ -1,23 +1,13 @@
-import {
-    ImageBackground,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
-} from "react-native";
+import {ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import React from "react";
 import {IMeal} from "../models/meal";
-import {NavigationStackProp} from "react-navigation-stack";
+import {useNavigation} from "@react-navigation/native";
 
-interface Props {
-    item: IMeal;
-    navigation: NavigationStackProp;
-}
 
-export const MealItem: React.ComponentType<Props> = ({item,navigation}) => {
-
+export const MealItem = ({item}: { item: IMeal }) => {
+    const navigation = useNavigation()
     const toMealDetail = () => {
-        navigation.navigate('MealDetail',{meal: item}
+        navigation.navigate('MealDetail', {meal: item}
         )
     }
 
@@ -49,8 +39,8 @@ const styles = StyleSheet.create({
         color: 'white',
         backgroundColor: 'rgba(0,0,0,0.6)',
         textAlign: 'center',
-        paddingVertical:5,
-        paddingHorizontal:15,
+        paddingVertical: 5,
+        paddingHorizontal: 15,
 
 
     },
@@ -64,9 +54,9 @@ const styles = StyleSheet.create({
     detail: {
         justifyContent: 'space-between',
 
-        height:'15%',
-        paddingVertical:5,
-        paddingHorizontal:15,
+        height: '15%',
+        paddingVertical: 5,
+        paddingHorizontal: 15,
     },
     header: {
         height: '85%'
@@ -76,7 +66,7 @@ const styles = StyleSheet.create({
         height: 200,
         width: '100%',
         backgroundColor: 'rgba(197,193,193,0.89)',
-        borderRadius:15,overflow:'hidden'
+        borderRadius: 15, overflow: 'hidden'
     },
     mealRow: {
         flexDirection: 'row',
