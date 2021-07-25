@@ -4,6 +4,7 @@ import {CATEGORIES, MEALS} from "../data/dummy-data";
 import {MealList} from "../components/MealList";
 import {CategoryMealsScreenRouteProp} from "../types";
 import {useNavigation, useRoute} from "@react-navigation/native";
+import store from './store';
 
 export const CategoryMeals = () => {
     const navigation = useNavigation();
@@ -16,7 +17,9 @@ export const CategoryMeals = () => {
         })
     }, [navigation]);
 
-    const displayedMeals = MEALS.filter(meal => meal.categoryIds.includes(categoryId))
+
+
+    const displayedMeals = store.filteredMeals.filter(meal => meal.categoryIds.includes(categoryId))
 
 
     return <MealList displayedMeals={displayedMeals} />

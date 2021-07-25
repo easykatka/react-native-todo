@@ -56,7 +56,7 @@ export const tabOptions = Platform.OS === 'android' ? {
                         ? 'ios-restaurant'
                         : 'ios-restaurant-outline';
                 } else if (route.name === 'Favorites') {
-                    iconName = 'ios-star'
+                    iconName = focused ? 'ios-star' : 'ios-star-outline'
                 }
                 return < Ionicons name={iconName} size={size}
                                   color={color}/>;

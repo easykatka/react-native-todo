@@ -7,9 +7,11 @@ import {CategoriesScreenNavigationProp} from "../types";
 import {DrawerActions, useNavigation } from '@react-navigation/native';
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import HeaderButton from "../components/HeaderButton";
+import store from './store'
+import {observer} from "mobx-react";
 
 
-export const Categories = () => {
+export const Categories = observer(() => {
     const navigation = useNavigation<CategoriesScreenNavigationProp>();
 
 
@@ -28,6 +30,6 @@ export const Categories = () => {
 
     return <FlatList numColumns={2} keyExtractor={(item, index) => item.id} data={CATEGORIES}
                      renderItem={renderItem}/>
-};
+});
 const styles = StyleSheet.create({})
 

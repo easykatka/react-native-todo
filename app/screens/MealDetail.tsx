@@ -5,23 +5,29 @@ import HeaderButton from "../components/HeaderButton";
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {MealDetailScreenNavigationProp, MealDetailScreenRouteProp} from "../types";
 import {DefaultText} from "../components/DefaultText";
+import store from "./store";
+import { observer } from 'mobx-react';
 
 
-export const MealDetail = () => {
+export const MealDetail = observer(() => {
     const route = useRoute<MealDetailScreenRouteProp>();
     const navigation = useNavigation<MealDetailScreenNavigationProp>();
 
-    const meal = route.params?.meal
+    const meal = route.params?.meal;
+    const exist = store.favoriteMeals.find(item => item.id === meal.id);
+
     useLayoutEffect(() => {
+
         navigation.setOptions({
             headerTitle: meal.title,
             headerRight: () => <HeaderButtons
                 HeaderButtonComponent={HeaderButton}>
-                <Item title='Favorite' iconName='ios-star'
-                      onPress={() => console.log('123')}/>
+                <Item title='Favorite' iconName={!exist ? 'ios-star-outline':'ios-star'}
+                      onPress={() => store.toggleFavorite(meal.id)}
+                />
             </HeaderButtons>
         })
-    }, [navigation])
+    }, [navigation,exist])
 
     const ListItem = ({child}:{child:string}) => <View  style={styles.listItem}><DefaultText>{child}</DefaultText></View>
 
@@ -33,16 +39,14 @@ export const MealDetail = () => {
                 <DefaultText>{meal.complexity.toUpperCase()}</DefaultText>
                 <DefaultText>{meal.affordability.toUpperCase()}</DefaultText>
             </View>
-
             <Text style={styles.title}>Ingredients</Text>
             {meal.ingredients.map((engr) => <ListItem key={engr}  child={engr}/>)}
-
             <Text style={styles.title}>Steps</Text>
             {meal.steps.map((step) => <ListItem key={step} child={step}/>)}
 
         </View>
     </ScrollView>
-};
+});
 
 const styles = StyleSheet.create({
     image: {
