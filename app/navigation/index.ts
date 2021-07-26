@@ -1,5 +1,0 @@
-export * from './mealsStackScreen'
-export * from './bottomTabsNav'
-export *  from './favoritesStackScreen'
-export * from './filtersStackScreen'
-export * from './mainDrawer'
