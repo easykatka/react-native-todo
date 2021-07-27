@@ -36,7 +36,7 @@ const placesOptions = ({navigation}: PlacesType) => {
         title: 'All Places',
         headerRight: () => <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
             <Item title='Add place' onPress={() => navigation.navigate('New Place')}
-                  iconName={Platform.OS === 'android' ? 'md-add' : 'ios-add'}/>
+                  iconName={'plus-circle'}/>
         </HeaderButtons>
     };
 };

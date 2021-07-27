@@ -5,6 +5,7 @@ import {observer} from "mobx-react";
 import {NavigationContainer} from '@react-navigation/native';
 import {enableScreens} from 'react-native-screens'
 import {PlacesStack} from './app/navigation/PlacesStack';
+import {NativeBaseProvider} from 'native-base';
 
 @observer
 export default class App extends React.Component {
@@ -29,9 +30,11 @@ export default class App extends React.Component {
 	render() {
 		if (!this.fontLoaded) return null;
 		return (
-			<NavigationContainer>
-				<PlacesStack/>
-			</NavigationContainer>
+			<NativeBaseProvider>
+				<NavigationContainer>
+					<PlacesStack/>
+				</NavigationContainer>
+			</NativeBaseProvider>
 		)
 	}
 };
