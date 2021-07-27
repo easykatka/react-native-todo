@@ -4,6 +4,7 @@ import {observable} from "mobx";
 import {observer} from "mobx-react";
 import {NavigationContainer} from '@react-navigation/native';
 import {enableScreens} from 'react-native-screens'
+import {PlacesStack} from './app/navigation/PlacesStack';
 
 @observer
 export default class App extends React.Component {
@@ -29,7 +30,7 @@ export default class App extends React.Component {
 		if (!this.fontLoaded) return null;
 		return (
 			<NavigationContainer>
-
+				<PlacesStack/>
 			</NavigationContainer>
 		)
 	}
