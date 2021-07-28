@@ -4,12 +4,19 @@ import {Box, Button, Center, Icon, Input} from "native-base"
 import {MaterialCommunityIcons} from "@expo/vector-icons"
 import store from './store'
 import {observer} from "mobx-react";
+import {useNavigation} from "@react-navigation/native";
+import {NewPlaceScreenNavigationProp} from "../types";
 
 
-export const NewPlace = observer(() => {
+export const NewPlace = observer(({}) => {
     const [title, setTitle] = React.useState("")
+    const navigator = useNavigation<NewPlaceScreenNavigationProp>()
 
-    const onSave = () => store.saveTitle(title);
+    const onSave = () => {
+        store.addPlace(title);
+        navigator.navigate('All places')
+    };
+
 
     return <ScrollView>
         <View>
@@ -31,7 +38,6 @@ export const NewPlace = observer(() => {
                         <Button onPress={onSave} colorScheme={'blue'}
                                 startIcon={<Icon as={MaterialCommunityIcons} name="plus-circle" size={5}/>}
                         >Add place </Button>
-                        <Text>{store.title}</Text>
                     </Center>
                 </Box>
             </Box>

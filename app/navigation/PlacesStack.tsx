@@ -12,14 +12,14 @@ const {Navigator, Screen} = createStackNavigator()
 export const PlacesStack = () => {
     return <Navigator {...NavOptions}>
         <Screen name='Map' component={Screens.Map} />
-        <Screen name='New Place' component={Screens.NewPlace} options={NewPlaceOptions}/>
-        <Screen name='Place Detail' component={Screens.PlaceDetail}/>
-        <Screen name='Places' component={Screens.PlacesList} options={placesOptions}/>
+        <Screen name='New place' component={Screens.NewPlace} options={NewPlaceOptions}/>
+        <Screen name='Place detail' component={Screens.PlaceDetail}/>
+        <Screen name='All places' component={Screens.PlacesList} options={placesOptions}/>
     </Navigator>
 };
 
 const NavOptions = {
-    initialRouteName: 'Places',
+    initialRouteName: 'All places',
     screenOptions: {
         headerStyle: {
             backgroundColor: Platform.OS === 'android' ? colors.primary : ''
@@ -35,7 +35,7 @@ const placesOptions = ({navigation}: PlacesType) => {
     return {
         title: 'All Places',
         headerRight: () => <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-            <Item title='Add place' onPress={() => navigation.navigate('New Place')}
+            <Item title='Add place' onPress={() => navigation.navigate('New place')}
                   iconName={'plus-circle'}/>
         </HeaderButtons>
     };
