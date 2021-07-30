@@ -6,6 +6,7 @@ import store from './store'
 import {observer} from "mobx-react";
 import {useNavigation} from "@react-navigation/native";
 import {NewPlaceScreenNavigationProp} from "../types";
+import {ImagePicker} from "../components/ImageSelector";
 
 
 export const NewPlace = observer(({}) => {
@@ -33,6 +34,7 @@ export const NewPlace = observer(({}) => {
                         placeholderTextColor: "blueGray.50",
                     }}
                 />
+                <ImagePicker />
                 <Box style={{margin: 20}}>
                     <Center flex={1}>
                         <Button onPress={onSave} colorScheme={'blue'}

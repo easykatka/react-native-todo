@@ -13,13 +13,12 @@ export const PlaceDetail = () => {
             headerTitle: params.title
         })
     },[])
-    console.log(params,'p')
-    return <View style={styles.screen}>
 
+    return <View style={styles.screen}>
         <Text>{params.id}</Text>
     </View>
 }
 
 const styles = StyleSheet.create({
-    screen: { }
+    screen: {}
 })
