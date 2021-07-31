@@ -1,43 +1,43 @@
 import React from 'react'
 import {Button, StyleSheet, Text, View,Image , Alert, Platform} from "react-native";
 import * as ImgPckr from 'expo-image-picker';
-import { Camera } from 'expo-camera';
-
+import {Camera} from 'expo-camera';
+import * as Permissions from 'expo-permissions'
 
 export const ImagePicker = (props) => {
     const [image, setImage] = React.useState(null);
+    //
+    // const [hasPermission, setHasPermission] = React.useState(null);
 
-    const [hasPermission, setHasPermission] = React.useState(null);
-    React.useEffect(() => {
-        (async () => {
-            if (Platform.OS !== 'web') {
-                const { status } = await ImgPckr.requestCameraPermissionsAsync()
-                if (status !== 'granted') {
-                    alert('Sorry, we need camera roll permissions to make this work!');
-                }
-            }
-        })();
-    }, []);
+    const getPermission = async () => {
+        const result = await Permissions.askAsync(Permissions.CAMERA);
+        console.log(result,'r')
+        if (result.status !== 'granted') {
+            Alert.alert('ins perm', [{text: 'ok'}])
+            return false;
+        }
+        return true;
+    }
+
 
     const pickImage = async () => {
-        let result = await ImgPckr.launchCameraAsync({
-            mediaTypes: ImgPckr.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
+        const hasPermission = await getPermission()
+        console.log(hasPermission,'123')
+        if (!hasPermission) return;
 
-        console.log(result);
+        const image1 = await ImgPckr.launchCameraAsync({
+            allowsEditing:true,
+            aspect: [16,9],
+            quality:0.5
+        })
+        setImage(image1)
+        console.log(image)
 
-        if (!result.cancelled) {
-            setImage(result.uri);
-        }
-    };
-
+    }
     return (
         <View style={styles.imagePicker}>
             <View style={styles.imagePreview}><Text>no image picked yet.</Text></View>
-            <Image style={styles.image} source={{uri:image}} />
+            <Image style={styles.image} source={{uri:image?.uri}} />
             <Button title='Take image' onPress={pickImage} />
 
         </View>
