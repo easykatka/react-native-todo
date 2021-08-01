@@ -6,8 +6,6 @@ import * as Permissions from 'expo-permissions'
 
 export const ImagePicker = (props) => {
     const [image, setImage] = React.useState(null);
-    //
-    // const [hasPermission, setHasPermission] = React.useState(null);
 
     const getPermission = async () => {
         const result = await Permissions.askAsync(Permissions.CAMERA);
@@ -22,16 +20,14 @@ export const ImagePicker = (props) => {
 
     const pickImage = async () => {
         const hasPermission = await getPermission()
-        console.log(hasPermission,'123')
         if (!hasPermission) return;
 
-        const image1 = await ImgPckr.launchCameraAsync({
+        const image = await ImgPckr.launchCameraAsync({
             allowsEditing:true,
             aspect: [16,9],
             quality:0.5
         })
-        setImage(image1)
-        console.log(image)
+        setImage(image)
 
     }
     return (
