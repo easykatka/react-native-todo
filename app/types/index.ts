@@ -1,11 +1,12 @@
 import {StackNavigationProp} from "@react-navigation/stack";
 import {RouteProp} from "@react-navigation/native";
+import {PlaceType} from "../models/Place";
 
 export type PlacesAppScreenNavigation = {
     'All places': undefined,
     'New place': undefined,
     "Map": undefined,
-    "Place detail": {id:string,title:string},
+    "Place detail": {params:PlaceType},
 };
 export type PlacesListcreenNavigationProp =
     StackNavigationProp<PlacesAppScreenNavigation, 'All places'>

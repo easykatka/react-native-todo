@@ -4,12 +4,14 @@ import * as ImgPckr from 'expo-image-picker';
 
 import * as Permissions from 'expo-permissions'
 import {observer} from "mobx-react";
+import {PlaceType} from "../models/Place";
 
-export const ImagePicker = observer(({place}) => {
+export const ImagePicker = observer(({place}:{place:PlaceType}) => {
 
     const getPermission = async () => {
         const result = await Permissions.askAsync(Permissions.CAMERA);
         if (result.status !== 'granted') {
+            // @ts-ignore
             Alert.alert('ins perm', [{text: 'ok'}])
             return false;
         }
@@ -26,13 +28,13 @@ export const ImagePicker = observer(({place}) => {
             aspect: [16,9],
             quality:0.5
         })
-        place.setImage(image)
+        place?.setImage(image)
     }
     return (
         <View style={styles.imagePicker}>
             <View style={styles.imagePreview}>
-                {place.image ?
-                    <Image style={styles.image} source={{uri: place.image?.uri}}/>
+                {place?.image ?
+                    <Image style={styles.image} source={{uri: place?.image?.uri}}/>
                     :
                     <Text>no image picked yet.</Text>
                 }

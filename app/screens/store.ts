@@ -1,15 +1,16 @@
 import {observable} from "mobx";
+import {PlaceType} from "../models/Place";
 
 
 
 class Store {
-    @observable places = [] as Array<Place>;
+    @observable places = [] as Array<PlaceType>;
 
     constructor() {
     }
 
 
-    addPlace = (place) => {
+    addPlace = (place:PlaceType) => {
 
         this.places.push(place)
     }

@@ -4,44 +4,56 @@ import {Box, Button, Center, Icon, Input} from "native-base"
 import {MaterialCommunityIcons} from "@expo/vector-icons"
 import store from './store'
 import {observer} from "mobx-react";
-import {useNavigation} from "@react-navigation/native";
-import {NewPlaceScreenNavigationProp} from "../types";
 import {ImagePicker} from "../components/ImageSelector";
-import place from '../models/Place'
+import Place, {PlaceType} from '../models/Place'
+import {observable} from "mobx";
 
+@observer
+export class NewPlace extends React.Component {
+    @observable place = null as PlaceType ;
 
-export const NewPlace = observer(({}) => {
-    const navigator = useNavigation<NewPlaceScreenNavigationProp>()
-
-    const onSave = () => {
-        store.addPlace(place);
-        navigator.navigate('All places')
+    constructor(props:any) {
+        super(props);
+        this.navigation = this.props.navigation;
+        this.init();
+    }
+    init = () => {
+        this.place = new Place();
+        // this.navigator = useNavigation<NewPlaceScreenNavigationProp>()
+    }
+    onSave = () => {
+        store.addPlace(this.place);
+        this.navigation.navigate('All places')
     };
 
-    return <ScrollView>
-        <View>
-            <Box style={{margin: 30}}>
-                <Input
-                    value={place.title}
-                    onChange={(e: any) => place.setTitle(e.nativeEvent.text)}
-                    variant="underlined"
-                    placeholder="Title"
-                    _light={{
-                        placeholderTextColor: "blueGray.400",
-                    }}
-                    _dark={{
-                        placeholderTextColor: "blueGray.50",
-                    }}
-                />
-                <ImagePicker place={place}/>
-                <Box style={{margin: 20}}>
-                    <Center flex={1}>
-                        <Button onPress={onSave} colorScheme={'blue'}
-                                startIcon={<Icon as={MaterialCommunityIcons} name="plus-circle" size={5}/>}
-                        >Add place </Button>
-                    </Center>
+    render() {
+
+        return <ScrollView>
+            <View>
+                <Box style={{margin: 30}}>
+                    <Input
+                        value={this.place?.title}
+                        // @ts-ignore
+                        onChange={(e: any) => this.place.title = e.nativeEvent.text}
+                        variant="underlined"
+                        placeholder="Title"
+                        _light={{
+                            placeholderTextColor: "blueGray.400",
+                        }}
+                        _dark={{
+                            placeholderTextColor: "blueGray.50",
+                        }}
+                    />
                 </Box>
-            </Box>
-        </View>
-    </ScrollView>
-})
+                    <ImagePicker place={this.place}/>
+                    <Box style={{margin: 20}}>
+                        <Center flex={1}>
+                            <Button onPress={this.onSave} colorScheme={'blue'}
+                                    startIcon={<Icon as={MaterialCommunityIcons} name="plus-circle" size={5}/>}
+                            >Add place </Button>
+                        </Center>
+                    </Box>
+            </View>
+        </ScrollView>
+    }
+}

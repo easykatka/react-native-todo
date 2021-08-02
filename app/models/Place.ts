@@ -1,19 +1,21 @@
 import {observable} from "mobx";
 
-type PlaceType = {
+export type PlaceType = {
     id: string,
     title: string,
-    image: Object
-}
+    image: any,
+    setTitle: (title: string) => void;
+    setImage: (image: any) => void;
+} | null
 
-export class Place extends PlaceType{
+export class Place {
     @observable id = new Date().toString();
     @observable title = ''
-    @observable image = null;
+    @observable image = null
 
 
-    setTitle = (title: string) => this.title = title;
-    setImage = (image: object) => this.image = image;
+    setTitle = (title:string) => this.title = title;
+    setImage = (image:any) => this.image = image;
 }
 
-export default new Place;
+export default Place;

@@ -6,28 +6,27 @@ import {observer} from "mobx-react";
 import colors from "../constans/colors";
 import {useNavigation} from "@react-navigation/native";
 import {PlacesListcreenNavigationProp} from "../types";
+import {PlaceType} from "../models/Place";
 
 export const PlacesList = observer(() => {
     const navigator = useNavigation<PlacesListcreenNavigationProp>()
 
     return <View>
-        <FlatList data={store.places.slice()} keyExtractor={item => item.id}
+        <FlatList data={store.places.slice()}
                   renderItem={({item}: { item: any }) => <PlaceItem item={item}
                                                                     onSelect={() => navigator.navigate('Place detail' , item) }
                   />}/>
     </View>
-
-
 })
 
 
-const PlaceItem = (props: any) => {
+const PlaceItem = ({item,onSelect}:any) => {
     return (
-        <TouchableOpacity onPress={props.onSelect} style={styles.placeItem}>
-            <Image style={styles.image} source={{uri: props.item.image}}/>
+        <TouchableOpacity onPress={onSelect} style={styles.placeItem}>
+            <Image style={styles.image} source={{uri: item?.image?.uri}}/>
             <View style={styles.infoContainer}>
-                <Text style={styles.title}>{props.item.title}</Text>
-                <Text style={styles.address}>{props.item.address}</Text>
+                <Text style={styles.title}>{item?.title}</Text>
+                {/*<Text style={styles.address}>{item?.address}</Text>*/}
             </View>
 
         </TouchableOpacity>
