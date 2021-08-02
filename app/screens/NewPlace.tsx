@@ -7,24 +7,23 @@ import {observer} from "mobx-react";
 import {useNavigation} from "@react-navigation/native";
 import {NewPlaceScreenNavigationProp} from "../types";
 import {ImagePicker} from "../components/ImageSelector";
+import place from '../models/Place'
 
 
 export const NewPlace = observer(({}) => {
-    const [title, setTitle] = React.useState("")
     const navigator = useNavigation<NewPlaceScreenNavigationProp>()
 
     const onSave = () => {
-        store.addPlace(title);
+        store.addPlace(place);
         navigator.navigate('All places')
     };
-
 
     return <ScrollView>
         <View>
             <Box style={{margin: 30}}>
                 <Input
-                    value={title}
-                    onChange={(e: any) => setTitle(e.nativeEvent.text)}
+                    value={place.title}
+                    onChange={(e: any) => place.setTitle(e.nativeEvent.text)}
                     variant="underlined"
                     placeholder="Title"
                     _light={{
@@ -34,7 +33,7 @@ export const NewPlace = observer(({}) => {
                         placeholderTextColor: "blueGray.50",
                     }}
                 />
-                <ImagePicker />
+                <ImagePicker place={place}/>
                 <Box style={{margin: 20}}>
                     <Center flex={1}>
                         <Button onPress={onSave} colorScheme={'blue'}
